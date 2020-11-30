@@ -2,7 +2,7 @@
 
 void RMatrix::printRMatrix()
 {
-    std::cout << "¹ØÏµ¾ØÕóÎª£º" << std::endl;
+    std::cout << "å…³ç³»çŸ©é˜µä¸ºï¼š" << std::endl;
     for (int i = 0; i < n; ++i)
     {
         for (int j = 0; j < n; ++j)
@@ -19,7 +19,7 @@ RMatrix::RMatrix(int _n, int _type, int _density)
     n = _n;
     type = _type;
     density = _density;
-    // ºÏ·¨ĞÔÅĞ¶Ï
+    // åˆæ³•æ€§åˆ¤æ–­
     if ((type & READ && type != READ) || (type & RANDOM && type != RANDOM) || (type & REFLEXIVE && type & IRREFLEXIVE) || (type & SYMMETRIC && type & ANTISYMMETRIC))
     {
         std::cout << "Invalid RMatrix type!" << std::endl;
@@ -35,7 +35,7 @@ RMatrix::RMatrix(int _n, int _type, int _density)
         }
     std::cout << "}" << std::endl;
     rmatrix.resize(n);
-    // ´ÓÎÄ¼şÖĞ¶Á
+    // ä»æ–‡ä»¶ä¸­è¯»
     if (type == READ)
     {
         for (i = 0; i < n; ++i)
@@ -51,14 +51,14 @@ RMatrix::RMatrix(int _n, int _type, int _density)
             }
         }
     }
-    else // Ëæ»úÉú³É
+    else // éšæœºç”Ÿæˆ
     {
         for (i = 0; i < n; ++i)
         {
             rmatrix[i].resize(n);
             for (j = 0; j < n; ++j)
             {
-                // ²»µÈ¸ÅÂÊ²úÉú01Öµ
+                // ä¸ç­‰æ¦‚ç‡äº§ç”Ÿ01å€¼
                 odds = rand() % 100;
                 if (odds < density)
                     rmatrix[i][j] = 1;
@@ -68,14 +68,14 @@ RMatrix::RMatrix(int _n, int _type, int _density)
         }
     }
 
-    // ²úÉú×Ô·´±Õ°ü
+    // äº§ç”Ÿè‡ªåé—­åŒ…
     if (type & REFLEXIVE)
     {
         for (i = 0; i < n; ++i)
             rmatrix[i][i] = 1;
         is_reflexive = true;
     }
-    // ²úÉú¶Ô³Æ±Õ°ü
+    // äº§ç”Ÿå¯¹ç§°é—­åŒ…
     if (type & SYMMETRIC)
     {
         for (i = 0; i < n; ++i)
@@ -83,10 +83,10 @@ RMatrix::RMatrix(int _n, int _type, int _density)
                 rmatrix[i][j] = rmatrix[i][j] & rmatrix[j][i];
         is_symmetric = true;
     }
-    // ²úÉú´«µİ±Õ°ü
+    // äº§ç”Ÿä¼ é€’é—­åŒ…
     if (type & TRANSITIVE)
     {
-        // warshallËã·¨
+        // warshallç®—æ³•
         for (k = 0; k < n; ++k)
             for (i = 0; i < n; ++i)
                 for (j = 0; j < n; ++j)
@@ -94,7 +94,7 @@ RMatrix::RMatrix(int _n, int _type, int _density)
                         rmatrix[i][j] = rmatrix[i][k] & rmatrix[k][j];
         is_transitive = true;
     }
-    // ²úÉú·´×Ô·´¹ØÏµ¾ØÕó
+    // äº§ç”Ÿåè‡ªåå…³ç³»çŸ©é˜µ
     if (type & IRREFLEXIVE)
     {
         for (i = 0; i < n; ++i)
@@ -102,7 +102,7 @@ RMatrix::RMatrix(int _n, int _type, int _density)
         is_reflexive = false;
         is_irreflexive = true;
     }
-    // ²úÉú·´¶Ô³Æ¹ØÏµ¾ØÕó
+    // äº§ç”Ÿåå¯¹ç§°å…³ç³»çŸ©é˜µ
     if (type & ANTISYMMETRIC)
     {
         for (i = 0; i < n; ++i)
@@ -112,22 +112,22 @@ RMatrix::RMatrix(int _n, int _type, int _density)
         is_symmetric = false;
         is_antisymmetric = true;
     }
-    // Èç¹ûÊÇÎÄ¼şÖĞ¶ÁÈ¡£¬Ôò»¹Ğè½âÎö£¬ÅĞ¶ÏÊÇ·ñÓĞÏàÓ¦µÄĞÔÖÊ
+    // å¦‚æœæ˜¯æ–‡ä»¶ä¸­è¯»å–ï¼Œåˆ™è¿˜éœ€è§£æï¼Œåˆ¤æ–­æ˜¯å¦æœ‰ç›¸åº”çš„æ€§è´¨
     if (type == READ)
         parseRMatrix();
-    // Èç¹ûÍ¬Ê±¾ßÓĞ×Ô·´ĞÔ¡¢¶Ô³ÆĞÔ¡¢´«µİĞÔÊÇµÈ¼Û¹ØÏµ
+    // å¦‚æœåŒæ—¶å…·æœ‰è‡ªåæ€§ã€å¯¹ç§°æ€§ã€ä¼ é€’æ€§æ˜¯ç­‰ä»·å…³ç³»
     if (is_reflexive && is_symmetric && is_transitive)
     {
         is_eq_rel = true;
         divideRMatrix();
     }
-    // Èç¹ûÍ¬Ê±¾ßÓĞ×Ô·´ĞÔ¡¢¶Ô³ÆĞÔÔòÊÇÏàÈİ¹ØÏµ
+    // å¦‚æœåŒæ—¶å…·æœ‰è‡ªåæ€§ã€å¯¹ç§°æ€§åˆ™æ˜¯ç›¸å®¹å…³ç³»
     if (is_reflexive && is_symmetric)
     {
         is_comp_rel = true;
         coverageRMatrix();
     }
-    // Èç¹ûÍ¬Ê±¾ßÓĞ×Ô·´ĞÔ¡¢·´¶Ô³ÆĞÔ¡¢´«µİĞÔÊÇÆ«Ğò¹ØÏµ
+    // å¦‚æœåŒæ—¶å…·æœ‰è‡ªåæ€§ã€åå¯¹ç§°æ€§ã€ä¼ é€’æ€§æ˜¯ååºå…³ç³»
     if (is_reflexive && is_antisymmetric && is_transitive)
     {
         is_part_rel = true;
@@ -153,7 +153,7 @@ void RMatrix::parseRMatrix()
     {
         for (j = 0; j < n; ++j)
         {
-            // Èç¹û¶Ô½ÇÏß´æÔÚ0£¬Ôò²»Âú×ã×Ô·´ĞÔ£»Èç¹û¶Ô½ÇÏß´æÔÚ1£¬Ôò²»Âú×ã·´×Ô·´ĞÔ
+            // å¦‚æœå¯¹è§’çº¿å­˜åœ¨0ï¼Œåˆ™ä¸æ»¡è¶³è‡ªåæ€§ï¼›å¦‚æœå¯¹è§’çº¿å­˜åœ¨1ï¼Œåˆ™ä¸æ»¡è¶³åè‡ªåæ€§
             if (i == j)
             {
                 if (rmatrix[i][j])
@@ -161,13 +161,13 @@ void RMatrix::parseRMatrix()
                 else
                     is_reflexive = false;
             }
-            // Èç¹û·Ç¶Ô½ÇÏßµÄ¶Ô³ÆÎ»ÖÃ¶¼Îª1Ôò²»Âú×ã·´¶Ô³ÆĞÔ
+            // å¦‚æœéå¯¹è§’çº¿çš„å¯¹ç§°ä½ç½®éƒ½ä¸º1åˆ™ä¸æ»¡è¶³åå¯¹ç§°æ€§
             else if (rmatrix[i][j] & rmatrix[j][i])
                 is_antisymmetric = false;
-            // Èç¹û·Ç¶Ô½ÇÏßµÄ¶Ô³ÆÎ»ÖÃµÄÖµ²»ÏàµÈÔò²»Âú×ã¶Ô³ÆĞÔ
+            // å¦‚æœéå¯¹è§’çº¿çš„å¯¹ç§°ä½ç½®çš„å€¼ä¸ç›¸ç­‰åˆ™ä¸æ»¡è¶³å¯¹ç§°æ€§
             else if (rmatrix[i][j] ^ rmatrix[j][i])
                 is_symmetric = false;
-            // Èç¹ûÓĞ´«µİĞÔÔòÍ¬Ò»Î»ÖÃ£¬Ô­¾ØÕóÎª0£¬ÇóÃİºó¾ØÕóÖµÒ»¶¨Îª0
+            // å¦‚æœæœ‰ä¼ é€’æ€§åˆ™åŒä¸€ä½ç½®ï¼ŒåŸçŸ©é˜µä¸º0ï¼Œæ±‚å¹‚åçŸ©é˜µå€¼ä¸€å®šä¸º0
             for (k = 0; is_transitive && k < n; ++k)
                 temp[i][j] |= rmatrix[i][k] & rmatrix[k][j];
             if (is_transitive && (temp[i][j] & !rmatrix[i][j]))
@@ -179,9 +179,9 @@ void RMatrix::parseRMatrix()
 void RMatrix::divideRMatrix()
 {
     int i, j;
-    bool is_newclass;           // µ±Ç°ÊÇ·ñÊôÓÚĞÂµÄµÈ¼ÛÀà
-    std::set<int> iffclass;     // µ±Ç°µÈ¼ÛÀà
-    std::set<int> intersection; // ½»¼¯
+    bool is_newclass;           // å½“å‰æ˜¯å¦å±äºæ–°çš„ç­‰ä»·ç±»
+    std::set<int> iffclass;     // å½“å‰ç­‰ä»·ç±»
+    std::set<int> intersection; // äº¤é›†
     for (i = 0; i < n; ++i)
     {
         is_newclass = true;
@@ -208,7 +208,7 @@ void RMatrix::divideRMatrix()
 void RMatrix::coverageRMatrix()
 {
     int i, j;
-    std::vector<int> curpoints, points, selectedpoints; // ·Ö±ğÊÇµ±ÇÒ×ÓÍ¼µÄ¶¥µã¼¯ºÏ£¬ËùÓĞ¶¥µãµÄ¼¯ºÏ£¬ËùÓĞ´ıÑ¡¶¥µãµÄ¼¯ºÏ
+    std::vector<int> curpoints, points, selectedpoints; // åˆ†åˆ«æ˜¯å½“ä¸”å­å›¾çš„é¡¶ç‚¹é›†åˆï¼Œæ‰€æœ‰é¡¶ç‚¹çš„é›†åˆï¼Œæ‰€æœ‰å¾…é€‰é¡¶ç‚¹çš„é›†åˆ
     for (i = 1; i <= n; ++i)
     {
         points.push_back(i);
@@ -217,12 +217,12 @@ void RMatrix::coverageRMatrix()
     for (i = 0; i < n; ++i)
     {
         curpoints.clear();
-        // ÖµÎª0ËµÃ÷¸Ã¶¥µãÒÑ¾­´æÔÚÓÚÏÈÇ°Ä³×ÓÍ¼ÖĞ
+        // å€¼ä¸º0è¯´æ˜è¯¥é¡¶ç‚¹å·²ç»å­˜åœ¨äºå…ˆå‰æŸå­å›¾ä¸­
         if (selectedpoints[i] == 0)
             continue;
         curpoints.push_back(points[i]);
         selectedpoints[i] = 0;
-        // ÔÚpointsÖĞÕÒËùÓĞÓëcurpointsÖĞµÄ¸÷¶¥µã¶¼ÏàÁ¬µÄµã²¢´ÓÖĞÈ¡³ö·ÅÈëcurpointsÖĞ
+        // åœ¨pointsä¸­æ‰¾æ‰€æœ‰ä¸curpointsä¸­çš„å„é¡¶ç‚¹éƒ½ç›¸è¿çš„ç‚¹å¹¶ä»ä¸­å–å‡ºæ”¾å…¥curpointsä¸­
         for (j = 0; j < n; ++j)
         {
             bool is_connected = true;
@@ -238,7 +238,7 @@ void RMatrix::coverageRMatrix()
                 selectedpoints[j] = 0;
             }
         }
-        // ½«curpoints·ÅÈëcomp_coverageÖĞ
+        // å°†curpointsæ”¾å…¥comp_coverageä¸­
         comp_coverage.push_back(curpoints);
     }
 }
@@ -246,7 +246,7 @@ void RMatrix::coverageRMatrix()
 void RMatrix::ParsePartialOrder()
 {
     int i, j, sum;
-    // Ñ°ÕÒ¼«Ğ¡Ôª
+    // å¯»æ‰¾æå°å…ƒ
     for (i = 0; i < n; ++i)
     {
         sum = 0;
@@ -258,7 +258,7 @@ void RMatrix::ParsePartialOrder()
         if (sum == 1)
             min_elem.insert(i+1);
     }
-    // Ñ°ÕÒ¼«´óÔª
+    // å¯»æ‰¾æå¤§å…ƒ
     for (i = 0; i < n; ++i)
     {
         sum = 0;
@@ -275,20 +275,20 @@ void RMatrix::ParsePartialOrder()
 void RMatrix::printAttrs()
 {
     if (!is_reflexive && !is_symmetric && !is_transitive && !is_irreflexive && !is_antisymmetric)
-        std::cout << "¹ØÏµ²»º¬³£¼ûÊôĞÔ" << std::endl;
+        std::cout << "å…³ç³»ä¸å«å¸¸è§å±æ€§" << std::endl;
     if (is_reflexive)
-        std::cout << "¹ØÏµ¾ßÓĞ×Ô·´ĞÔ" << std::endl;
+        std::cout << "å…³ç³»å…·æœ‰è‡ªåæ€§" << std::endl;
     if (is_symmetric)
-        std::cout << "¹ØÏµ¾ßÓĞ¶Ô³ÆĞÔ" << std::endl;
+        std::cout << "å…³ç³»å…·æœ‰å¯¹ç§°æ€§" << std::endl;
     if (is_transitive)
-        std::cout << "¹ØÏµ¾ßÓĞ´«µİĞÔ" << std::endl;
+        std::cout << "å…³ç³»å…·æœ‰ä¼ é€’æ€§" << std::endl;
     if (is_irreflexive)
-        std::cout << "¹ØÏµ¾ßÓĞ·´×Ô·´ĞÔ" << std::endl;
+        std::cout << "å…³ç³»å…·æœ‰åè‡ªåæ€§" << std::endl;
     if (is_antisymmetric)
-        std::cout << "¹ØÏµ¾ßÓĞ·´¶Ô³ÆĞÔ" << std::endl;
+        std::cout << "å…³ç³»å…·æœ‰åå¯¹ç§°æ€§" << std::endl;
     if (is_eq_rel)
     {
-        std::cout << "¹ØÏµÎªµÈ¼Û¹ØÏµ£¬»®·ÖÎª£º" << std::endl
+        std::cout << "å…³ç³»ä¸ºç­‰ä»·å…³ç³»ï¼Œåˆ’åˆ†ä¸ºï¼š" << std::endl
                   << "{";
         int i = 1, division_size = division.size();
         for (auto it_division : division)
@@ -309,7 +309,7 @@ void RMatrix::printAttrs()
     }
     if (is_comp_rel)
     {
-        std::cout << "¹ØÏµÎªÏàÈİ¹ØÏµ£¬ÍêÈ«¸²¸ÇÎª£º" << std::endl
+        std::cout << "å…³ç³»ä¸ºç›¸å®¹å…³ç³»ï¼Œå®Œå…¨è¦†ç›–ä¸ºï¼š" << std::endl
                   << "{";
         int i = 1, comp_coverage_size = comp_coverage.size();
         for (auto it_coverage : comp_coverage)
@@ -330,8 +330,8 @@ void RMatrix::printAttrs()
     }
     if (is_part_rel)
     {
-        std::cout << "¹ØÏµÎªÆ«Ğò¹ØÏµ" << std::endl;
-        std::cout << "¼«Ğ¡ÔªÎª£º" << std::endl;
+        std::cout << "å…³ç³»ä¸ºååºå…³ç³»" << std::endl;
+        std::cout << "æå°å…ƒä¸ºï¼š" << std::endl;
         int i = 1, min_elem_size = min_elem.size(), max_elem_size = max_elem.size();
         for (auto it_elem : min_elem)
         {
@@ -340,7 +340,7 @@ void RMatrix::printAttrs()
                 std::cout << ",";
         }
         std::cout << std::endl;
-        std::cout << "¼«´óÔªÎª£º" << std::endl;
+        std::cout << "æå¤§å…ƒä¸ºï¼š" << std::endl;
         i = 1;
         for (auto it_elem : max_elem)
         {

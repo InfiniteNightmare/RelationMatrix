@@ -4,40 +4,40 @@
 #include <set>
 #include <vector>
 
-#define READ 0           // ´ÓÎÄ¼şÖĞ¶Á
-#define RANDOM 1         // Ëæ»ú
-#define REFLEXIVE 2      // ×Ô·´ĞÔ
-#define SYMMETRIC 4      // ¶Ô³ÆĞÔ
-#define TRANSITIVE 8      // ´«µİĞÔ
-#define IRREFLEXIVE 16   // ·´×Ô·´ĞÔ
-#define ANTISYMMETRIC 32 // ·´¶Ô³ÆĞÔ
+#define READ 0           // ä»æ–‡ä»¶ä¸­è¯»
+#define RANDOM 1         // éšæœº
+#define REFLEXIVE 2      // è‡ªåæ€§
+#define SYMMETRIC 4      // å¯¹ç§°æ€§
+#define TRANSITIVE 8      // ä¼ é€’æ€§
+#define IRREFLEXIVE 16   // åè‡ªåæ€§
+#define ANTISYMMETRIC 32 // åå¯¹ç§°æ€§
 
 class RMatrix
 {
 public:
-    void printRMatrix();                           // Êä³ö¹ØÏµ¾ØÕó
-    void printAttrs();                             // Êä³ö¹ØÏµ¾ØÕóµÄ¸÷ÊôĞÔ
-    RMatrix(int _n, int _type, int _density = 50); // ¹¹Ôìº¯Êı£¬°´ÕÕÊäÈëÖ¸ÁîÉú³É¹ØÏµ¾ØÕó
-    RMatrix(int _n);                               // Ä¬ÈÏ¹¹Ôìº¯Êı£¬ÎŞ²ÎÔòËæ»úÉú³ÉÒ»¸ö¹ØÏµ¾ØÕó
+    void printRMatrix();                           // è¾“å‡ºå…³ç³»çŸ©é˜µ
+    void printAttrs();                             // è¾“å‡ºå…³ç³»çŸ©é˜µçš„å„å±æ€§
+    RMatrix(int _n, int _type, int _density = 50); // æ„é€ å‡½æ•°ï¼ŒæŒ‰ç…§è¾“å…¥æŒ‡ä»¤ç”Ÿæˆå…³ç³»çŸ©é˜µ
+    RMatrix(int _n);                               // é»˜è®¤æ„é€ å‡½æ•°ï¼Œæ— å‚åˆ™éšæœºç”Ÿæˆä¸€ä¸ªå…³ç³»çŸ©é˜µ
 private:
-    int n;                                                // ¾ØÕó½×Êı
-    int type;                                             // ¹ØÏµÖÖÀà
-    int density;                                          // ³õÊ¼¹ØÏµ¾ØÕóÖĞ1µÄÃÜ¶È,È¡ÖµÎª[0, 100]
-    bool is_reflexive = false;                            // ÊÇ·ñ¾ßÓĞ×Ô·´ĞÔ
-    bool is_symmetric = false;                            // ÊÇ·ñ¾ßÓĞ¶Ô³ÆĞÔ
-    bool is_transitive = false;                            // ÊÇ·ñ¾ßÓĞ´«µİĞÔ
-    bool is_irreflexive = false;                          // ÊÇ·ñ¾ßÓĞ·´×Ô·´ĞÔ
-    bool is_antisymmetric = false;                        // ÊÇ·ñ¾ßÓĞ·´¶Ô³ÆĞÔ
-    bool is_eq_rel = false;                               // ÊÇ·ñÊÇµÈ¼Û¹ØÏµ
-    bool is_comp_rel = false;                             // ÊÇ·ñÊÇÏàÈİ¹ØÏµ
-    bool is_part_rel = false;                             // ÊÇ·ñÊÇÆ«Ğò¹ØÏµ
-    std::vector<std::vector<bool>> rmatrix;               // ¹ØÏµ¾ØÕó
-    std::vector<std::set<int>> division;                  // ¹ØÏµ¾ØÕóµÄµÈ¼ÛÀà/»®·Ö
-    std::vector<std::vector<int>> comp_coverage;          // ¹ØÏµ¾ØÕóµÄ×î´óÏàÈİÀà/ÍêÈ«¸²¸Ç
-    std::set<int> min_elem;                               // ¼«Ğ¡Ôª
-    std::set<int> max_elem;                               // ¼«´óÔª
-    void parseRMatrix();                                  // ½âÎö¹ØÏµ¾ØÕó
-    void divideRMatrix();                                 // Çó¹ØÏµ¾ØÕó»®·Ö
-    void coverageRMatrix();                               // Çó¹ØÏµ¾ØÕóÍêÈ«¸²¸Ç
-    void ParsePartialOrder();                             // ½âÎöÆ«Ğò¹ØÏµ
+    int n;                                                // çŸ©é˜µé˜¶æ•°
+    int type;                                             // å…³ç³»ç§ç±»
+    int density;                                          // åˆå§‹å…³ç³»çŸ©é˜µä¸­1çš„å¯†åº¦,å–å€¼ä¸º[0, 100]
+    bool is_reflexive = false;                            // æ˜¯å¦å…·æœ‰è‡ªåæ€§
+    bool is_symmetric = false;                            // æ˜¯å¦å…·æœ‰å¯¹ç§°æ€§
+    bool is_transitive = false;                            // æ˜¯å¦å…·æœ‰ä¼ é€’æ€§
+    bool is_irreflexive = false;                          // æ˜¯å¦å…·æœ‰åè‡ªåæ€§
+    bool is_antisymmetric = false;                        // æ˜¯å¦å…·æœ‰åå¯¹ç§°æ€§
+    bool is_eq_rel = false;                               // æ˜¯å¦æ˜¯ç­‰ä»·å…³ç³»
+    bool is_comp_rel = false;                             // æ˜¯å¦æ˜¯ç›¸å®¹å…³ç³»
+    bool is_part_rel = false;                             // æ˜¯å¦æ˜¯ååºå…³ç³»
+    std::vector<std::vector<bool>> rmatrix;               // å…³ç³»çŸ©é˜µ
+    std::vector<std::set<int>> division;                  // å…³ç³»çŸ©é˜µçš„ç­‰ä»·ç±»/åˆ’åˆ†
+    std::vector<std::vector<int>> comp_coverage;          // å…³ç³»çŸ©é˜µçš„æœ€å¤§ç›¸å®¹ç±»/å®Œå…¨è¦†ç›–
+    std::set<int> min_elem;                               // æå°å…ƒ
+    std::set<int> max_elem;                               // æå¤§å…ƒ
+    void parseRMatrix();                                  // è§£æå…³ç³»çŸ©é˜µ
+    void divideRMatrix();                                 // æ±‚å…³ç³»çŸ©é˜µåˆ’åˆ†
+    void coverageRMatrix();                               // æ±‚å…³ç³»çŸ©é˜µå®Œå…¨è¦†ç›–
+    void ParsePartialOrder();                             // è§£æååºå…³ç³»
 };
